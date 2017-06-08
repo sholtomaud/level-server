@@ -4,7 +4,7 @@ RUN useradd --user-group --create-home --shell /bin/false app &&  npm install --
 
 ENV HOME=/home/app
 
-COPY package.json npm-shrinkwrap.json $HOME/level-server/
+COPY package.json $HOME/level-server/
 RUN chown -R app:app $HOME/*
 
 USER app

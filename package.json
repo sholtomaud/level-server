@@ -35,5 +35,13 @@
   "bin": {
     "level-server": "server.js"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shotlom/level-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shotlom/level-server/issues"
+  },
+  "homepage": "https://github.com/shotlom/level-server#readme"
 }
