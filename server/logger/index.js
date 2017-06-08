@@ -10,7 +10,7 @@ module.exports =  bunyan.createLogger({
         },
         {
             level: config.logLevel,
-            path: config.logFileName
+            path: '/tmp/logs/' + config.logFileName
         }
     ]
 });

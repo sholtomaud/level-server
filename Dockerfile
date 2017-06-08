@@ -1,5 +1,4 @@
-FROM node:7.7.2
-
+FROM node:argon
 
 RUN useradd --user-group --create-home --shell /bin/false app
 
@@ -10,6 +9,8 @@ RUN chown -R app:app $HOME/*
 
 USER app
 WORKDIR $HOME/level-server
+
+RUN mkdir /tmp/logs/
 
 RUN npm install --production
 
