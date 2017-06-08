@@ -1,9 +1,9 @@
-level-server: 
+level-server:
     build: "."
     mem_limit: 128m
     restart: always
     container_name: level-server
-    command: npm run watch
+    command: npm run start
     volumes:
       - .:/home/app/level-server
       - /home/app/level-server/node_modules

@@ -1,10 +1,10 @@
-FROM node:6.9.5
+FROM node:argon
 
 RUN useradd --user-group --create-home --shell /bin/false app &&  npm install --global npm@5.0.1
 
 ENV HOME=/home/app
 
-COPY package.json $HOME/level-server/
+COPY package.json package-lock.json $HOME/level-server/
 RUN chown -R app:app $HOME/*
 
 USER app
