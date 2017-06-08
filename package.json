@@ -28,6 +28,7 @@
     "request-data": "^1.2.0",
     "retort": "^1.0.1",
     "sea-lion": "^1.0.5",
+    "semver": "^5.3.0",
     "simple-cors": "^1.1.1",
     "wraperr": "^1.0.1",
     "xtend": "^4.0.1"
