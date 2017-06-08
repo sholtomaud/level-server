@@ -4,8 +4,10 @@ RUN useradd --user-group --create-home --shell /bin/false app &&  npm install --
 
 ENV HOME=/home/app
 
-COPY package.json package-lock.json server.log $HOME/level-server/
+COPY package.json package-lock.json $HOME/level-server/
+RUN touch $HOME/level-server/server.log
 RUN chown -R app:app $HOME/*
+
 
 USER app
 WORKDIR $HOME/level-server
