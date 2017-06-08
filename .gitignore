@@ -5,3 +5,4 @@ NOTES.md
 *.log
 app
 misc
+.DS_Store
