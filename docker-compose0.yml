@@ -1,0 +1,19 @@
+level-server:
+    build: "."
+    mem_limit: 128m
+    restart: always
+    container_name: level-server
+    #command: npm run watch
+    volumes:
+      - .:/home/app/level-server
+      - /home/app/level-server/node_modules
+    ports:
+      - 8080
+    environment:
+      NODE_ENV: production
+    labels:
+      SERVICE_80_NAME: level-server
+      SERVICE_80_CHECK_HTTP: /
+      SERVICE_80_CHECK_INTERVAL: 10s
+      SERVICE_443_IGNORE: 'yes'
+      SERVICE_TAGS: production

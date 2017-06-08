@@ -1,0 +1,18 @@
+FROM node:4.6.2
+
+# Create app directory
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+
+VOLUME ["/opt/app/db"]
+EXPOSE 2012
+
+# RUN apt-get install build-essential
+RUN apt-get install -y make gcc g++ python git libssl-dev
+
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install --production && cp -R node_modules /opt/app
+
+ADD . /opt/app
+
+CMD ["bin/server"]

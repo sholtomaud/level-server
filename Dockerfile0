@@ -1,0 +1,26 @@
+FROM node:argon
+
+RUN useradd --user-group --create-home --shell /bin/false app &&  npm install --global npm@3.7.5
+RUN apt-get install -y make gcc g++ python git libssl-dev
+
+ENV HOME=/home/app
+
+COPY package.json  $HOME/level-server/
+RUN chown -R app:app $HOME/*
+
+USER app
+WORKDIR $HOME/level-server
+
+RUN npm install
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
+
+
+# VOLUME ["/opt/app/db"]
+# ADD package.json /tmp/package.json
+# RUN cd /tmp && npm install --production && cp -R node_modules /opt/app
+
+# ADD . /opt/app
+
+# CMD ["bin/server"]
