@@ -14,7 +14,7 @@ const db = new LevelDB();
 //   //    });
 // })
 
-function batch(request, response, tokens, data){
+function batcher(request, response, tokens, data){
   db.batch(data, function (error) {
     if(error){
          response.writeHead(500);
@@ -24,6 +24,24 @@ function batch(request, response, tokens, data){
      response.writeHead(200, {'Content-Type': 'text/plain'});
      response.end('batch upload complete\n');
   })
+}
+
+function batch(account, skip, limit, callback){
+    let options = {
+      limit: limit
+    }
+    console.log('batch',limit);
+    db.batch( 'id', options, function (error, vals) {
+      if(error){
+          console.log('err',error);
+          //  response.writeHead(500);
+          //  response.end(JSON.stringify(error.message));
+           callback(error,null);
+       }
+      //  console.log('erturn from db',vals);
+      //  response.end(JSON.stringify(val));
+       callback(null,vals)
+     });
 }
 
 function delAll(request, response, tokens, data){

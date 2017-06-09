@@ -1,0 +1,9 @@
+[{
+    "type": "put",
+    "key": "barkleybookshelves::controls",
+    "value": ["local_library", "search", "near_me", "add", "local_offer"]
+}, {
+    "type": "put",
+    "key": "user:sholtom::home",
+    "value": ["Foo", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Bar", "Baz"]
+}]

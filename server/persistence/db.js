@@ -47,6 +47,7 @@ LevelStore.prototype.getAll = function (id, options, callback) {
       'id',id,
       'options',options
     );
+
   this._forEach(
       id
     , options
@@ -134,16 +135,35 @@ function batch(request, response, tokens, data){
   })
 }
 
-LevelStore.prototype.batch = function (id, fn, callback) {
-  this._db.batch(data, function (error) {
-    if(error){
-         response.writeHead(500);
-         response.end(JSON.stringify(error.message));
-         return;
-     }
-     response.writeHead(200, {'Content-Type': 'text/plain'});
-     response.end('batch upload complete\n');
-  })
+// LevelStore.prototype.batch = function (id, fn, callback) {
+//   this._db.batch(data, function (error) {
+//     if(error){
+//          response.writeHead(500);
+//          response.end(JSON.stringify(error.message));
+//          return;
+//      }
+//      response.writeHead(200, {'Content-Type': 'text/plain'});
+//      response.end('batch upload complete\n');
+//   })
+// }
+LevelStore.prototype.batch = function (id, options, callback) {
+  var ret   = {}
+    , keys = []
+    console.log(
+      'id',id,
+      'options',options
+    );
+    var batch = []
+    this._forEach(
+        id
+      , options
+      , function (key) {
+          batch.push({ type: 'del', key: dbkey(id, key) })
+        }
+      , function () {
+          this._db.batch(batch, LUP_OPTIONS, callback)
+        }.bind(this)
+    )
 }
 
 LevelStore.prototype._forEach = function (id, options, fn, callback) {

@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.10",
-    "flat-merge-n": "^1.0.1",
+    "bunyan-syslog": "github:mcavage/node-bunyan-syslog#9bdb9eb62a763c7d30e032a619138032d5ff8771",
     "generic-errors": "^2.0.2",
     "generic-session": "^0.1.2",
     "jayschema": "^0.3.1",
@@ -28,7 +28,6 @@
     "request-data": "^1.2.0",
     "retort": "^1.0.1",
     "sea-lion": "^1.0.5",
-    "semver": "^5.3.0",
     "simple-cors": "^1.1.1",
     "wraperr": "^1.0.1",
     "xtend": "^4.0.1"

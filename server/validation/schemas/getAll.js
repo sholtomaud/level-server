@@ -1,6 +1,6 @@
 module.exports = {
     label: 'Get all Records',
-    ype: 'array',
+    type: 'array',
     items: [
         {
             description: 'skip',

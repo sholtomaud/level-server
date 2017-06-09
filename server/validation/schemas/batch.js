@@ -1,22 +1,21 @@
 module.exports = {
-    label: 'Import a Record',
+    label: 'Import batch',
     type: 'array',
     items: [
         {
             description: 'schema for a Record',
             type: 'object',
-            required: ['data', 'schemaId'],
-            additionalProperties: false,
-            properties: {
-                data: {
-                    type: 'object'
-                },
-                schemaId: {
-                    type: 'string'
-                }
-            }
+            additionalProperties: false
+        },
+        {
+            description: 'skip',
+            type: 'string'
+        },
+        {
+            description: 'limit',
+            type: 'string'
         }
     ],
-    minItems: 1,
-    maxItems: 1
+    minItems: 0,
+    maxItems: 3
 };

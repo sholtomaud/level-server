@@ -8,6 +8,7 @@ COPY package.json package-lock.json $HOME/level-server/
 RUN chown -R app:app $HOME/*
 
 USER app
+RUN chmod -R 775 $HOME/*
 WORKDIR $HOME/level-server
 
 RUN mkdir /tmp/logs/

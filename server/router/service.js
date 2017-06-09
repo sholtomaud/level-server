@@ -49,7 +49,7 @@ function handler(retort){
       [
           // queryString || {},
           queryString.skip || '',
-          queryString.limit || 1
+          queryString.limit || -1
       ],
       wraperr( retort.ok, retort.error )
   );
@@ -73,9 +73,41 @@ function get(retort, tokens){
   });
 }
 
+// function batch(request, response, tokens, data){
+//     controlsService.getControls( data, function(error, controls){
+//         if(error){
+//             response.writeHead(500);
+//             response.end(JSON.stringify(error.message));
+//             return;
+//         }
+//
+//         response.end(JSON.stringify(controls));
+//     })
+// }
+
+function batch(retort, tokens, data){
+    let URL = url.parse(retort.request.url, true);
+    let queryString = URL.query;
+    let path = URL.pathname.substring(1);
+    console.log('URL:',URL);
+    console.log('query',queryString);
+    console.log('retort', tokens, data);
+
+    validate[ path ]( 'account',
+        [
+            data || [],
+            queryString.skip || '',
+            queryString.limit || -1
+        ],
+        wraperr( retort.ok, retort.error )
+    );
+}
+
+
 module.exports = {
     '/batch': {
-      POST: requestData(retorter(db.batch))
+      PUT: requestData(retorter(batch)),
+      POST: requestData(retorter(batch))
     },
     '/del/`id`': {
       DELETE: retorter(db.delete)
@@ -87,7 +119,8 @@ module.exports = {
         GET: retorter(handler)
     },
     '/getAll': {
-        POST: retorter(handler)
+        POST: retorter(handler),
+        GET: retorter(handler)
     },
     '/set/`id`': {
         PUT: requestData(retorter(db.set))
