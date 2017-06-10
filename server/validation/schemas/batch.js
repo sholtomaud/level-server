@@ -3,8 +3,8 @@ module.exports = {
     type: 'array',
     items: [
         {
-            description: 'schema for a Record',
-            type: 'object',
+            description: 'array of items',
+            type: 'array',
             additionalProperties: false
         },
         {

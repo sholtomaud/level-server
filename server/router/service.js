@@ -89,15 +89,17 @@ function batch(retort, tokens, data){
     let URL = url.parse(retort.request.url, true);
     let queryString = URL.query;
     let path = URL.pathname.substring(1);
-    console.log('URL:',URL);
-    console.log('query',queryString);
-    console.log('retort', tokens, data);
+    // console.log('URL:',URL);
+    console.log(' path:', path);
+    // console.log('query',queryString);
+    // console.log('retort', tokens, data);
+    // console.log('data', data);
 
     validate[ path ]( 'account',
         [
             data || [],
             queryString.skip || '',
-            queryString.limit || -1
+            queryString.limit || '-1'
         ],
         wraperr( retort.ok, retort.error )
     );

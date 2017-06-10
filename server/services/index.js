@@ -26,12 +26,14 @@ function batcher(request, response, tokens, data){
   })
 }
 
-function batch(account, skip, limit, callback){
+function batch(account, data, skip, limit, callback){
     let options = {
       limit: limit
     }
-    console.log('batch',limit);
-    db.batch( 'id', options, function (error, vals) {
+    // console.log('account',account);
+    // console.log('skip',skip);
+    // console.log('limit',limit);
+    db.batch( 'id', skip, limit, data, function (error, vals) {
       if(error){
           console.log('err',error);
           //  response.writeHead(500);

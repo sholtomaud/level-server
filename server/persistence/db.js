@@ -52,10 +52,12 @@ LevelStore.prototype.getAll = function (id, options, callback) {
       id
     , options
     , function (key, value) {
+        console.log('key',key,'value',value);
         ret[key] = JSON.parse(value)
         keys.push(dbkey(id, key))
       }
     , function () {
+        console.log('GETALL RETURN',ret);
         callback(null, ret)
       }.bind(this)
   )
@@ -118,6 +120,7 @@ LevelStore.prototype.delAll = function (id, callback) {
   )
 }
 
+
 LevelStore.prototype.close = function (callback) {
   this._db.close(callback)
 }
@@ -146,43 +149,37 @@ function batch(request, response, tokens, data){
 //      response.end('batch upload complete\n');
 //   })
 // }
-LevelStore.prototype.batch = function (id, options, callback) {
-  var ret   = {}
-    , keys = []
-    console.log(
-      'id',id,
-      'options',options
-    );
-    var batch = []
-    this._forEach(
-        id
-      , options
-      , function (key) {
-          batch.push({ type: 'del', key: dbkey(id, key) })
-        }
-      , function () {
-          this._db.batch(batch, LUP_OPTIONS, callback)
-        }.bind(this)
-    )
+LevelStore.prototype.batch = function (id, skip, limit, data, callback) {
+    this._db.batch(data, LUP_OPTIONS,  (err)=>{
+        callback(err,'Successful upload');
+      })
 }
+
 
 LevelStore.prototype._forEach = function (id, options, fn, callback) {
   let OPTIONS = {
-      gte : this._dbkey(options.id) || this._dbkey(id)
-    , lte   : this._dbkey(options.id) + SEP_CHAR || this._dbkey(id) + SEP_CHAR
-    , reverse: options.reverse || false
-    , limit: options.limit || -1
+    //   gte : this._dbkey(options.id) || this._dbkey(id)
+    // , lte   : this._dbkey(options.id) + SEP_CHAR || this._dbkey(id) + SEP_CHAR
+    // ,
+    reverse: options.reverse || false
+    , limit: Number(options.limit) || -1
 
   };
 
   var rs  = this._db.createReadStream( xtend(LUP_OPTIONS, OPTIONS) );
 
   rs.on('data', function (data) {
+
       var lkey = data.key.split(SEP_CHAR)
       if (lkey.length == 3)
-        fn(lkey[2], data.value)
+      console.log('data',data,'lkey',lkey)
+      fn(lkey[2], data.value)
     })
     .on('close', callback)
+    .on('error',(err)=>{
+      console.log('DB GET ERROR',err);
+    })
+
 }
 
 module.exports = LevelStore
